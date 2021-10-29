@@ -16,6 +16,7 @@ const config = {
   organizationName: 'Jake-Mok-Nelson',
   projectName: 'website',
   trailingSlash: true,
+  
 
   presets: [
     [
@@ -112,6 +113,10 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      colorMode: {
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
       },
     }),
 };
