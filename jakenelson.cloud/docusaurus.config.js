@@ -51,15 +51,15 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Notes',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/Jake-Mok-Nelson',
             label: 'GitHub',
             position: 'right',
           },
@@ -72,7 +72,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Notes',
                 to: '/docs/intro',
               },
             ],
@@ -108,7 +108,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Jake Nelson; Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
