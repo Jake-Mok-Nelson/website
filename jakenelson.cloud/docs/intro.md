@@ -2,34 +2,16 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Docs Intro
 
-Let's discover **Docusaurus in less than 5 minutes**.
+I'm storing my public docs here for myself as well as code reuse.
 
-## Getting Started
+## Patterns
 
-Get started by **creating a new site**.
+Reusable patterns in cloud/tech.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+e.g. Building & Managing Docker images from a mono-repo.
 
-## Generate a new site
+## Notes
 
-Generate a new Docusaurus site using the **classic template**:
-
-```shell
-npm init docusaurus@latest my-website classic
-```
-
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and display your changes.
+This is a place for my notes that don't create a pattern.

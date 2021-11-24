@@ -1,0 +1,16 @@
+---
+slug: building-a-robust-ci-pipeline-for-golang-with-google-cloud-build
+title: Building a Robust CI Pipeline for Golang With Google Cloud-Build
+authors: [jake]
+tags: [Golang, CloudBuild, CICD, Devops]
+---
+
+![Pipeline Image](./pipeline.jpeg)
+
+Blog posts support [Docusaurus Markdown features](https://docusaurus.io/docs/markdown-features), such as [MDX](https://mdxjs.com/).
+
+:::tip
+
+Use the power of React to create interactive blog posts.
+
+:::

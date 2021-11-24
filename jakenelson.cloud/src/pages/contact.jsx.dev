@@ -1,0 +1,83 @@
+import React from 'react';
+import Layout from '@theme/Layout';
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+      <p>
+        If you'd like to contact me please fill out the form below.
+      </p>
+
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label><br/>
+        <label>
+          Email:
+          <input type="email" value={this.state.value} onChange={this.handleChange} />
+        </label><br/>
+        <label>
+        Reason for contact: 
+        <select>
+          <option value="Sales">Selling something</option>
+          <option value="StillSales">Selling something but you don't want to admit it</option>
+          <option value="Recruitment" selected>Job opportunity</option>
+          <option value="Collaboration">Collaboration on a project</option>
+          <option value="Other">Other</option>
+        </select>
+        </label><br/>
+        <label>
+        Which cloud provider is this related to? 
+        <select>
+          <option value="Google">Google</option>
+          <option value="Azure" selected>Azure</option>
+          <option value="AWS">AWS</option>
+          <option value="Other">Other</option>
+        </select>
+        </label><br/>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+
+function Contact() {
+  return (
+    <Layout title="Contact">
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '50vh',
+          fontSize: '20px',
+        }}>
+        
+        
+        
+        <NameForm></NameForm>
+        
+      </div>
+    </Layout>
+  );
+}
+
+export default Contact;

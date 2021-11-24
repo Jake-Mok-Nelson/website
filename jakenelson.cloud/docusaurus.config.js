@@ -46,17 +46,21 @@ const config = {
     ({
       navbar: {
         title: 'Jake Nelson',
-        logo: {
-          alt: 'Jake Nelson Logo',
-          src: 'img/logo.svg',
-        },
+        // logo: {
+        //   alt: 'Jake Nelson Logo',
+        //   src: 'img/logo.svg',
+        // },
         items: [
-          { to: '/blog', label: 'Blog', position: 'left' },
+          { 
+            to: '/blog', 
+            label: 'Blog', 
+            position: 'left', 
+          },
           {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Notes',
+            label: 'Docs',
           },
           {
             href: 'https://github.com/Jake-Mok-Nelson',
@@ -72,25 +76,12 @@ const config = {
             title: 'Docs',
             items: [
               {
+                label: 'Patterns',
+                to: '/docs/patterns/intro',
+              },
+              {
                 label: 'Notes',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                to: '/docs/notes/intro',
               },
             ],
           },
@@ -98,12 +89,12 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'Medium Blog',
+                href: 'https://jake-mok-nelson.medium.com',
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/Jake-Mok-Nelson',
               },
             ],
           },
