@@ -18,10 +18,17 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      - name: Install
+        run: |
+          yarn --cwd ./jakenelson.cloud/ install
+      - name: Build
+        run: |
+          yarn --cwd ./jakenelson.cloud/ build
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USER: "Jake-Mok-Nelson"
         run: |
           git config --global user.name Jake-Mok-Nelson
           git config --global user.email jakesmnelson@gmail.com
-          make GH_TOKEN=$GH_TOKEN deploy
+          yarn --cwd ./jakenelson.cloud/ deploy
