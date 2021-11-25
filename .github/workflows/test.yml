@@ -1,18 +1,26 @@
 name: test-site
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      deployments: write
+      checks: write
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Test Build
+      - name: Install
         run: |
-          make build
+          yarn --cwd ./jakenelson.cloud/ install
+      - name: Build
+        run: |
+          yarn --cwd ./jakenelson.cloud/ build
