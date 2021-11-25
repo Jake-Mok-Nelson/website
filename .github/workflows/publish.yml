@@ -21,11 +21,11 @@ jobs:
         uses: redkubes/docusaurus-deploy-action@v1
         with:
           # source folder
-          source-folder: ./jakenelson.cloud/
+          source-folder: jakenelson.cloud
           # git user name
           git-user: Jake-Mok-Nelson
           # git password (defaults to secrets.GITHUB_TOKEN, which should work if it has default rights)
-          # git-password: # optional
+          git-password: ${{ secrets.GITHUB_TOKEN }}
           # git branch to publish to (defaults to gh-pages)
           # deployment-branch: # optional
       
