@@ -1,7 +1,7 @@
 name: test-site
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
