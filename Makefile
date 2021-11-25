@@ -9,5 +9,5 @@ start: init
 build: init
 	yarn --cwd ./jakenelson.cloud/ build
 
-deploy:
+deploy: build
 	GIT_USER=Jake-Mok-Nelson yarn --cwd ./jakenelson.cloud/ deploy
