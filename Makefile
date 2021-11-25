@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-GIT_USER=$(GH_USER)
+GIT_USER="Jake-Mok-Nelson"
 GH_TOKEN=$(GH_TOKEN)
 WORKING_DIR="./jakenelson.cloud/"
 
