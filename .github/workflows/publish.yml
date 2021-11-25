@@ -20,6 +20,6 @@ jobs:
           node-version: '12.x'
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          make deploy
+          make GH_TOKEN=$GH_TOKEN deploy
