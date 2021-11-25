@@ -26,7 +26,7 @@ jobs:
           yarn --cwd ./jakenelson.cloud/ build
       - name: Publish
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TOKEN }}
           GIT_USER: "Jake-Mok-Nelson"
         run: |
           git config --global user.name Jake-Mok-Nelson
