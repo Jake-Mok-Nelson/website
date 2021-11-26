@@ -38,20 +38,20 @@ There’s also evidence to suggest that people come up with coping mechanisms fo
 
 #### The fun time cost exercise (I’m a rage at parties)
 
-Let’s take an example where people incorrectly post “@here” into a support channel.
+Let’s take an example where people incorrectly post "@here" into a support channel.
 
 For the example we’ll make a couple of assumptions:
 
-*   There are 700 members in our channel, 70% of them (**490 people**) will see the notification (eventually), almost all of them will not have a dedicated time they allow for distractions. We’ll refer to this value as <interruptedPeople>
-*   For most of them, the “@here” will be pretty obviously not related to them and so they will get back to work quickly (long distractions take longer to get back into the groove of the original work), say 1 minute (490 x 1 = **490 minutes cost**). We’ll refer to this value as <minutesCost>
-*   Someone will post it into this support channel once every 3 weeks on average.We’ll refer to this as <interruptionFrequency>
+*   There are 700 members in our channel, 70% of them (**490 people**) will see the notification (eventually), almost all of them will not have a dedicated time they allow for distractions. We’ll refer to this value as **interruptedPeople**
+*   For most of them, the “@here” will be pretty obviously not related to them and so they will get back to work quickly (long distractions take longer to get back into the groove of the original work), say 1 minute (490 x 1 = **490 minutes cost**). We’ll refer to this value as minutesCost
+*   Someone will post it into this support channel once every 3 weeks on average.We’ll refer to this as **interruptionFrequency**
 *   254 working days in a year
 
-<workingDays> / <daysInWeek> = 36.28 working weeks
+**workingDays** / **daysInWeek** = 36.28 working weeks
 
-<workingWeeks> / <interruptionFrequency> = 12 “@here” notifications per year; we’ll refer to this as <yearlyInterruptions>.
+**workingWeeks** / **interruptionFrequency** = 12 “@here” notifications per year; we’ll refer to this as **yearlyInterruptions**.
 
-<yearlyInterruptions> \* <minutesCost> = 5,880 minutes or **98 business hours per year for a single channel**. How many channels receive “@here” with this frequency? It really adds up when you’re talking a small number of interruptions to a large number of people over a long period of time.
+**yearlyInterruptions** \* **minutesCost** = 5,880 minutes or **98 business hours per year for a single channel**. How many channels receive “@here” with this frequency? It really adds up when you’re talking a small number of interruptions to a large number of people over a long period of time.
 
 The company pays for these hours, as do the staff members with their productivity, focus, and enthusiasm.
 
