@@ -77,11 +77,11 @@ const config = {
             items: [
               {
                 label: 'Patterns',
-                to: '/docs/patterns/intro',
+                to: '/docs-2/patterns/intro',
               },
               {
                 label: 'Notes',
-                to: '/docs/notes/intro',
+                to: '/docs-2/notes/intro',
               },
             ],
           },
