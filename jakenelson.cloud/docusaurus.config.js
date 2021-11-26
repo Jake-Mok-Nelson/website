@@ -11,11 +11,12 @@ const config = {
   url: 'https://jakenelson.cloud',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'Jake-Mok-Nelson',
   projectName: 'website',
   trailingSlash: true,
+  image: 'img/banner.png',
   
 
   presets: [
@@ -128,6 +129,7 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Jake Nelson; Built with Docusaurus.`,
       },
       prism: {
+        defaultLanguage: 'yaml',
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
