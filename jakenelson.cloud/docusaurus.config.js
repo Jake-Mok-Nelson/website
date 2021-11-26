@@ -16,7 +16,6 @@ const config = {
   organizationName: 'Jake-Mok-Nelson',
   projectName: 'website',
   trailingSlash: true,
-  image: 'img/banner.png',
   
 
   presets: [
