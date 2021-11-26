@@ -62,6 +62,11 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
+          { 
+            to: '/about', 
+            label: 'About', 
+            position: 'left', 
+          },
           {
             href: 'https://github.com/Jake-Mok-Nelson',
             label: 'GitHub',
