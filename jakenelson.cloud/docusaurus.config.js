@@ -86,6 +86,19 @@ const config = {
             ],
           },
           {
+            title: 'Blogs',
+              items: [
+                { 
+                  label: 'Blog', 
+                  to: '/blog', 
+                },
+                {
+                  label: 'Medium',
+                  to: 'https://jake-mok-nelson.medium.com/',
+                },
+              ],
+            },
+          {
           title: 'Community',
             items: [
               {
@@ -96,18 +109,18 @@ const config = {
                 label: 'LinkedIn',
                 to: 'https://www.linkedin.com/in/jake-mok-nelson/',
               },
-              {
-                label: 'Medium',
-                to: 'https://jake-mok-nelson.medium.com/',
-              },
             ],
           },
           {
             title: 'More',
             items: [
               {
-                label: 'GitHub',
+                label: 'My Github',
                 href: 'https://github.com/Jake-Mok-Nelson',
+              },
+              {
+                label: 'This website (as code)',
+                href: 'https://github.com/Jake-Mok-Nelson/website',
               },
             ],
           },
