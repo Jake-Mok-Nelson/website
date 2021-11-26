@@ -86,12 +86,25 @@ const config = {
             ],
           },
           {
-            title: 'More',
+          title: 'Community',
             items: [
               {
-                label: 'Medium Blog',
-                href: 'https://jake-mok-nelson.medium.com',
+                label: 'Stack Overflow',
+                to: 'https://stackoverflow.com/users/2516260/jake-nelson?tab=profile',
               },
+              {
+                label: 'LinkedIn',
+                to: 'https://www.linkedin.com/in/jake-mok-nelson/',
+              },
+              {
+                label: 'Medium',
+                to: 'https://jake-mok-nelson.medium.com/',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
               {
                 label: 'GitHub',
                 href: 'https://github.com/Jake-Mok-Nelson',
