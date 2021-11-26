@@ -21,10 +21,10 @@ jobs:
 #       - uses: webfactory/ssh-agent@v0.5.0
 #         with:
 #           ssh-private-key: ${{ secrets.PRIVATEKEY }}
-      # - name: Build
-      #   run: |
-      #     yarn --cwd ./jakenelson.cloud/ install
-      #     yarn --cwd ./jakenelson.cloud/ build
+      - name: Build
+        run: |
+          yarn --cwd ./jakenelson.cloud/ install
+          yarn --cwd ./jakenelson.cloud/ build
       - name: Docusaurus BuildDeploy Action
         # You may pin to the exact commit or the version.
         # uses: redkubes/docusaurus-deploy-action@f81b409203e9562ebbac672e37daa5e8a6193144
