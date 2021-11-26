@@ -15,36 +15,23 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v2
-      - name: Docusaurus BuildDeploy Action
-        # You may pin to the exact commit or the version.
-        # uses: redkubes/docusaurus-deploy-action@f81b409203e9562ebbac672e37daa5e8a6193144
-        uses: redkubes/docusaurus-deploy-action@v1
+      - uses: actions/setup-node@v1
         with:
-          # source folder
-          source-folder: jakenelson.cloud
-          # git user name
-          git-user: Jake-Mok-Nelson
-          # git password (defaults to secrets.GITHUB_TOKEN, which should work if it has default rights)
-          git-password: ${{ secrets.GITHUB_TOKEN }}
-          # git branch to publish to (defaults to gh-pages)
-          # deployment-branch: # optional
-      
-      
-      
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: '12.x'
-#       - name: Install
-#         run: |
-#           yarn --cwd ./jakenelson.cloud/ install
-#       - name: Build
-#         run: |
-#           yarn --cwd ./jakenelson.cloud/ build
-#       - name: Publish
-#         env:
-#           GH_TOKEN: ${{ secrets.TOKEN }}
-#           GIT_USER: "Jake-Mok-Nelson"
-#         run: |
-#           git config --global user.name Jake-Mok-Nelson
-#           git config --global user.email jakesmnelson@gmail.com
-#           GIT_USER=${GIT_USER} GH_TOKEN=${GH_TOKEN} yarn --cwd ./jakenelson.cloud/ deploy
+          node-version: '12.x'
+      - uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATEKEY }}
+      - name: Get Dependencies
+        run: |
+          yarn --cwd ./jakenelson.cloud/ install
+      - name: Build
+        run: |
+          yarn --cwd ./jakenelson.cloud/ build
+      - name: Publish to GitHub Pages
+        env:
+          USE_SSH: true
+          GIT_USER: Jake-Mok-Nelson
+        run: |
+          git config --global user.email "jakesmnelson@gmail.com"
+          git config --global user.name "Jake-Mok-Nelson"
+          yarn --cwd ./jakenelson.cloud/ deploy
