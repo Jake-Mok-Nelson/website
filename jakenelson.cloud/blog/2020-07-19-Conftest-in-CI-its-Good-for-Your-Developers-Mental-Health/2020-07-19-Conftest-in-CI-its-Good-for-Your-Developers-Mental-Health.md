@@ -75,17 +75,17 @@ This can be saved as policy/kubernetes.rego
 We can use these helpers to evaluate what kind of resource we’re testing.
 
 #### Step 2 — Create the rule
-
+```
 package main   
-\# the namespace our check lives under
+# the namespace our check lives under
 
 import data.kubernetes   
-\# importing the helper functions in the kubernetes namespace
+# importing the helper functions in the kubernetes namespace
 
 name = input.metadata.name   
-\# a shortcut we can use to easily access the name in our deny messages
+# a shortcut we can use to easily access the name in our deny messages
 
-deny\[msg\] {  
+deny[msg] {  
   kubernetes.is\_deployment   
   # helper function from kubernetes.rego  
     
@@ -95,7 +95,7 @@ deny\[msg\] {
 msg = sprintf("Containers must not run as root in Deployment %s", \[name\])   
   # if the testing target is a deployment but the second rule evaluates to false, we will return the message as a  build failure  
 }
-
+```
 We can save this as a policy/deployment.dart so we have a place to store all our deployment based rules.
 
 In the above diagram, we are choosing to use a “deny” because it suits what we’re doing but we could also use “violation” or “warn”.
@@ -107,7 +107,7 @@ When all lines of the deny rule evaluate to true, the deny rule returns a failur
 #### Step 3 — Create the manifest
 
 Now create the Kubernetes deployment manifest as deployment.yaml:
-
+```
 apiVersion: apps/v1  
 kind: Deployment  
 metadata:  
@@ -131,12 +131,12 @@ spec:
         image: paulbouwer/hello-kubernetes:1.5  
         ports:  
         - containerPort: 8080
-
+```
 #### Step 4 — Run the test
 
 Make sure you have [Conftest installed](https://www.conftest.dev/install/) on your device and run conftest against the deployment manifest, like so:
 
-› conftest test deployment.yaml
+`› conftest test deployment.yaml`
 
 Note that while we’re doing this from the command line in this test, we can do it the same way in a build step by consuming the [instrumenta/conftest Docker repository](https://hub.docker.com/r/instrumenta/conftest).
 

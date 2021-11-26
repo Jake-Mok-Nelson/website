@@ -22,11 +22,11 @@ Awake now? good stuff!
 Let’s create a simple Dockerfile and build an image:
 
 If we run the above image, what user do you think we’ll be using?
-
+```bash
 $ docker run --rm -it $(docker build -q .)  
 **root  
 uid=0(root) gid=0(root) groups=0(root)**
-
+```
 If you guessed root, you guessed right.
 
 #### What’s wrong with letting user’s run as root?
@@ -48,17 +48,17 @@ You saw above that when we don’t define a user in a Dockerfile we end up runni
 
 Let’s go over the interesting parts quickly:
 
-groupadd --gid 15555 notroot
+`groupadd --gid 15555 notroot`
 
 *   Create a group with an ID of 15555 named “notroot”.
 
-useradd --uid 15555 --gid 15555 -ms /bin/false notroot
+`useradd --uid 15555 --gid 15555 -ms /bin/false notroot`
 
 *   Creates a user with a user id of 15555 and a group ID of 15555 (the group we created in the line before).
 *   Set’s its default shell to nothing.
 *   Names the user “notroot”.
 
-USER notroot
+`USER notroot`
 
 *   Set our new user account as the default user for this Docker image.
 
@@ -78,11 +78,11 @@ Now that we’ve got our best-practices container, we’ll need to deploy it int
 Let’s take a super simple deployment like this:
 
 After we deploy the above and check the log output we can see that the restrictions we put into the Docker image are working:
-
+```bash
 \> kubectl logs usertest-66fb6d564f-hnkpg  
 **notroot  
 uid=15555(notroot) gid=15555(notroot) groups=15555(notroot)**
-
+```
 Great! Thanks for reading! 👍
 
 If only it were that simple.
