@@ -93,7 +93,7 @@ const config = {
                   to: '/blog', 
                 },
                 {
-                  label: 'Medium',
+                  label: 'Medium (legacy/mirror)',
                   to: 'https://jake-mok-nelson.medium.com/',
                 },
               ],
