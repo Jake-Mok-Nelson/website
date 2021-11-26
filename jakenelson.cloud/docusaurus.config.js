@@ -77,11 +77,11 @@ const config = {
             items: [
               {
                 label: 'Patterns',
-                to: '/docs-2/patterns/intro',
+                to: '/docs/patterns/intro',
               },
               {
                 label: 'Notes',
-                to: '/docs-2/notes/intro',
+                to: '/docs/notes/intro',
               },
             ],
           },
@@ -93,7 +93,7 @@ const config = {
                   to: '/blog', 
                 },
                 {
-                  label: 'Medium (legacy/mirror)',
+                  label: 'Medium',
                   to: 'https://jake-mok-nelson.medium.com/',
                 },
               ],
@@ -129,7 +129,7 @@ const config = {
       },
       prism: {
         defaultLanguage: 'yaml',
-        // additionalLanguages: ['terraform'],
+        additionalLanguages: ['terraform'],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
