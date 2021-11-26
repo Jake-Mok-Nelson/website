@@ -129,7 +129,7 @@ const config = {
       },
       prism: {
         defaultLanguage: 'yaml',
-        additionalLanguages: ['terraform'],
+        // additionalLanguages: ['terraform'],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
