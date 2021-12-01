@@ -1,0 +1,121 @@
+---
+id: github-enterprise-as-code
+title: Github As Code
+tags:
+  - github
+  - ghe
+---
+
+# Github as Code
+
+Status: Work in Progress
+
+Having Github managed as code for an entire organisation has several benefits:
+
+* You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)
+* Configuration can be as generic or specific as you need for the case.
+* Implementation is declaritive and transparent.
+* Largely self-service environment reduces TOIL.
+
+The target of this implementation is large enterprise implementations of Github Enterprise.
+
+## Authentication
+
+### Pipeline Authentication
+Use a token instead of a Github app to authenticate.
+
+This is because Github Apps have limitations around access-management & team membership that requires manual intervention by a organisation admin.
+
+```
+provider "github" {
+  token = var.token # or `GITHUB_TOKEN`
+}
+```
+
+or
+
+```
+provider "github" {
+  app_auth {} # When using `GITHUB_APP_XXX` environment variables
+}
+```
+
+## Creating Organisations
+
+Creating organisations is not available via the Terraform provider.
+
+This has to be done [via the API](https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization).
+
+```
+curl \
+  -X POST \
+  -H "Accept: application/vnd.github.v3+json" \
+  http(s)://{hostname}/api/v3/admin/organizations \
+  -d '{"login":"login","admin":"admin"}'
+```
+
+Success Response: `Status: 201 Created`
+
+## User / Group Management
+
+
+### Syncing Users & Groups
+
+If users of the organisation are managed via Azure AD or Okta, they can be onboarded using group syncs.
+[Integrate users directly with Azure AD via sync groups](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_sync_group_mapping).
+
+Azure AD auth requirements:
+	
+* Global administrator
+* Privileged Role administrator
+
+Use the `github_user` data resource for reading singular users and the `github_users` data resource for reading multiple at once.
+
+To conume a synced group and onboard them as a group:
+
+```
+data "github_organization_team_sync_groups" "this" {}
+
+resource "github_team_sync_group_mapping" "example_group_mapping" {
+  team_slug        = "example"
+
+  dynamic "group" {
+    for_each = [for g in data.github_organization_team_sync_groups.this.groups : g if g.group_name == "some_team_group"]
+    content {
+      group_id          = group.value.group_id
+      group_name        = group.value.group_name
+      group_description = group.value.group_description
+    }
+  }
+}
+
+```
+
+### Creating org admins
+
+```
+resource "github_membership" "membership_for_some_user" {
+  username = "SomeUser"
+  role     = "admin"
+}
+```
+
+### Blocking Users
+
+Whilst uncommon it might be required to occasionally block members.
+
+```
+resource "github_organization_block" "example" {
+  username = "paultyng"
+}
+```
+
+## Module Use Cases
+
+* Organisation Group/User Management (membership)
+* Repository creation
+
+## Resources
+
+* [Repository best practices](../notes/tech/github-repo-best-practices.md)
+* [Github Terraform Provider](https://registry.terraform.io/providers/integrations/github/latest/docs)
