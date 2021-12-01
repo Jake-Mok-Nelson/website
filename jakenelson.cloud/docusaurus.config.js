@@ -26,13 +26,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/Jake-Mok-Nelson/website/jakenelson.cloud',
+          editUrl: 'https://github.com/Jake-Mok-Nelson/website/tree/main/jakenelson.cloud',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/Jake-Mok-Nelson/websitejakenelson.cloud',
+            'https://github.com/Jake-Mok-Nelson/website/tree/main/jakenelson.cloud',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
