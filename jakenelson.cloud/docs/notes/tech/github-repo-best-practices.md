@@ -13,6 +13,10 @@
 
 * Use peer-revier via pull-requests to keep the trunk clean and ensure code qualilty meets the standards set by the team.
 * Use CI pipelines to ensure code quality meets the standards set by the team.
+* Use meaningful commit messages and PR titles.
+* Adhere to commit message and PR title length limits.
+* Use commit body to add further detail where requied.
+* Repositories should be meaningful, if there isn't a clear purpose to a repository, it's probably too large.
 
 ## Hygiene
 
