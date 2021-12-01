@@ -19,26 +19,12 @@ Having Github managed as code for an entire organisation has several benefits:
 
 The target of this implementation is large enterprise implementations of Github Enterprise.
 
-## Authentication
+## Module/Abstraction Use Cases
 
-### Pipeline Authentication
-Use a token instead of a Github app to authenticate.
-
-This is because Github Apps have limitations around access-management & team membership that requires manual intervention by a organisation admin.
-
-```
-provider "github" {
-  token = var.token # or `GITHUB_TOKEN`
-}
-```
-
-or
-
-```
-provider "github" {
-  app_auth {} # When using `GITHUB_APP_XXX` environment variables
-}
-```
+* Organisation group/user management (membership)
+  * Handle sync groups or static groups
+  * Configure admins
+* Repository configuration
 
 ## Creating Organisations
 
@@ -46,7 +32,7 @@ Creating organisations is not available via the Terraform provider.
 
 This has to be done [via the API](https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization).
 
-```
+```bash
 curl \
   -X POST \
   -H "Accept: application/vnd.github.v3+json" \
@@ -58,38 +44,7 @@ Success Response: `Status: 201 Created`
 
 ## User / Group Management
 
-
-### Syncing Users & Groups
-
-If users of the organisation are managed via Azure AD or Okta, they can be onboarded using group syncs.
-[Integrate users directly with Azure AD via sync groups](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_sync_group_mapping).
-
-Azure AD auth requirements:
-	
-* Global administrator
-* Privileged Role administrator
-
-Use the `github_user` data resource for reading singular users and the `github_users` data resource for reading multiple at once.
-
-To conume a synced group and onboard them as a group:
-
-```
-data "github_organization_team_sync_groups" "this" {}
-
-resource "github_team_sync_group_mapping" "example_group_mapping" {
-  team_slug        = "example"
-
-  dynamic "group" {
-    for_each = [for g in data.github_organization_team_sync_groups.this.groups : g if g.group_name == "some_team_group"]
-    content {
-      group_id          = group.value.group_id
-      group_name        = group.value.group_name
-      group_description = group.value.group_description
-    }
-  }
-}
-
-```
+Users and group can be [synced from azure-ad](notes/tech/github/syncing-github-groups-from-azuread.mdx) or configured statically.
 
 ### Creating org admins
 
@@ -110,12 +65,95 @@ resource "github_organization_block" "example" {
 }
 ```
 
-## Module Use Cases
+## Repository Management
 
-* Organisation Group/User Management (membership)
-* Repository creation
+A repository module should be used to ensure that [repository best practices](notes/tech/github/github-repo-best-practices.mdx) are being adhered to.
+
+Use repository templates to consume best practice repos, potentially including things like doc templates and Codeowners.
+
+The option to destroy repositories should be very carefully restricted, probably disallowed entirely via (make destroyed archived).
+
+Template repositories can be managed via code as well.
+
+## Enterprise Code Directory Structures
+
+### Separate Orgs
+
+#### Pros
+* Ideal for improving separation between organisations.
+* Reduces risk of impacting another organisation.
+* All resources defined in Terraform files can be easier to read.
+
+#### Cons
+* Is not DRY - lots of code duplication for each organisation.
+* Can be difficult to maintain.
+* Ambiguous as to who's responsibility it is to maintain the directory (i.e. Github team that own this repo or the organisation owners)
+
+#### Structure
+
+```
+.
+├── CODEOWNERS
+├── modules
+│   └── membership
+│       ├── examples
+│       │   ├── common-org
+│       │   │   ├── main.tf
+│       │   │   └── versions.tf
+│       │   └── edge-case-org
+│       │       ├── main.tf
+│       │       └── versions.tf
+│       ├── main.tf
+│       ├── test
+│       │   ├── terraform_common_org_test.go
+│       │   └── terraform_edge_case_org_test.go
+│       ├── variable.tf
+│       └── variables.tf
+├── orgs
+│   ├── github-management
+│   │   ├── members.tf
+│   │   ├── repositories.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── org-2
+│   │   ├── members.tf
+│   │   ├── repositories.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   └── orgs
+└── pipelines
+    ├── support-import-resources.yaml
+    ├── cd-new-org.yaml
+    ├── cd-org-management.yaml
+    ├── ci-new-org.yaml
+    └── ci-org-management.yaml
+```
+
+## CI / CD
+
+### Pipeline Practices
+
+Should use a Terraform version greater than 0.13 as it supports Terraform Variable validation out of the box.
+
+### Pipeline Authentication
+Use a token instead of a Github app to authenticate.
+
+This is because Github Apps have limitations around access-management & team membership that requires manual intervention by a organisation admin.
+
+```
+provider "github" {
+  token = var.token # or `GITHUB_TOKEN`
+}
+```
+
+or
+
+```
+provider "github" {
+  app_auth {} # When using `GITHUB_APP_XXX` environment variables
+}
+```
 
 ## Resources
 
-* [Repository best practices](notes/tech/github/github-repo-best-practices.mdx)
 * [Github Terraform Provider](https://registry.terraform.io/providers/integrations/github/latest/docs)

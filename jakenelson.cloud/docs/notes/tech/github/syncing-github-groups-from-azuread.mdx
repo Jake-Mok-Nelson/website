@@ -1,0 +1,51 @@
+---
+id: syncing-github-groups-from-azuread
+title: Syncing Users & Groups from AzureAD
+tags:
+  - github
+  - ghe
+  - access
+  - azuread
+---
+
+# Syncing Users & Groups from AzureAD
+
+## Requirements
+
+If users of the organisation are managed via Azure AD or Okta, they can be onboarded using group syncs.
+[Integrate users directly with Azure AD via sync groups](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_sync_group_mapping).
+
+Azure AD auth requirements for sync:
+	
+* Global administrator
+* Privileged Role administrator
+
+## Creating the sync
+
+To create a synced group from AzureAD use a Terraform configuration like so:
+
+```terraform
+data "github_organization_team_sync_groups" "this" {}
+
+resource "github_team_sync_group_mapping" "example_group_mapping" {
+  team_slug        = "example"
+
+  dynamic "group" {
+    for_each = [for g in data.github_organization_team_sync_groups.this.groups : g if g.group_name == "some_team_group"]
+    content {
+      group_id          = group.value.group_id
+      group_name        = group.value.group_name
+      group_description = group.value.group_description
+    }
+  }
+}
+
+```
+
+## Consuming users and teams
+
+Once Onboarded you can consume them via data resources.
+
+Use the `github_team` data resource for reading singular teams and the `github_teams` data resource for reading multiple at once.
+
+Use the `github_user` data resource for reading singular users and the `github_users` data resource for reading multiple at once.
