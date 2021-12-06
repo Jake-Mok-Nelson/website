@@ -77,19 +77,15 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Patterns',
-                to: '/docs/patterns/intro',
-              },
-              {
-                label: 'Notes',
-                to: '/docs/notes/intro',
-              },
-            ],
-          },
+          // {
+          //   title: 'Docs',
+          //   items: [
+          //     {
+          //       label: 'Docs',
+          //       to: '/docs/',
+          //     },
+          //   ],
+          // },
           {
             title: 'Blogs',
               items: [

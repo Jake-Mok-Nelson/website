@@ -12,7 +12,7 @@ start: init
 	yarn --cwd $(WORKING_DIR) start
 
 build: init
-	yarn --cwd $(WORKING_DIR) build
+	NODE_OPTIONS=--openssl-legacy-provider yarn --cwd $(WORKING_DIR) build
 
 deploy: build
-	GIT_USER=$(GIT_USER) yarn --cwd $(WORKING_DIR) deploy
+	NODE_OPTIONS=--openssl-legacy-provider GIT_USER=$(GIT_USER) yarn --cwd $(WORKING_DIR) deploy
