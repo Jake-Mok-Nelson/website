@@ -123,6 +123,10 @@ const config = {
                 label: 'This website (as code)',
                 href: 'https://github.com/Jake-Mok-Nelson/website',
               },
+              {
+                label: 'Professional Development Plan (Private)',
+                href: 'https://github.com/Jake-Mok-Nelson/pdp/projects/1',
+              },
             ],
           },
         ],
