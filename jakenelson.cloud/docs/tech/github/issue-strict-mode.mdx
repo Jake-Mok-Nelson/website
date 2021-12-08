@@ -1,0 +1,32 @@
+---
+id: issue-strict-mode
+title: Strict Mode Issue With Terraform
+tags:
+  - github
+  - ghe
+  - repository
+  - terraform
+---
+
+# Github Strict Mode Issue With Terraform
+
+## Issue
+
+When applying repositories and their branch protection settings via Terraform you will see that strict mode is being enabled every pipeline execution.
+
+## Cause
+
+Github API can't seem to set strict mode when a required status check is not attached, the strict mode setting comes underneath the branch protection settings.
+
+## Resolution
+
+None at this time.
+
+## Workaround
+
+Attach a required status check to the branch protection settings, even if it's a very simple status check that can be returnd every time.
+
+Some example cases of pipelines that would be good for solving this issue:
+
+* A security pipeline to check for credentials being committed on feature branches.
+* A repository hygeine pipeline to ensure feature branches meet conventions and previously merged branches are removed (ideally this is mangaged via repository settings though).

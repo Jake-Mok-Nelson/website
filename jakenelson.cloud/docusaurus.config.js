@@ -26,13 +26,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/Jake-Mok-Nelson/website/jakenelson.cloud',
+          editUrl: 'https://github.com/Jake-Mok-Nelson/website/tree/main/jakenelson.cloud',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/Jake-Mok-Nelson/websitejakenelson.cloud',
+            'https://github.com/Jake-Mok-Nelson/website/tree/main/jakenelson.cloud',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -77,19 +77,15 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Patterns',
-                to: '/docs/patterns/intro',
-              },
-              {
-                label: 'Notes',
-                to: '/docs/notes/intro',
-              },
-            ],
-          },
+          // {
+          //   title: 'Docs',
+          //   items: [
+          //     {
+          //       label: 'Docs',
+          //       to: '/docs/',
+          //     },
+          //   ],
+          // },
           {
             title: 'Blogs',
               items: [
@@ -126,6 +122,10 @@ const config = {
               {
                 label: 'This website (as code)',
                 href: 'https://github.com/Jake-Mok-Nelson/website',
+              },
+              {
+                label: 'Professional Development Plan (Private)',
+                href: 'https://github.com/Jake-Mok-Nelson/pdp/projects/1',
               },
             ],
           },

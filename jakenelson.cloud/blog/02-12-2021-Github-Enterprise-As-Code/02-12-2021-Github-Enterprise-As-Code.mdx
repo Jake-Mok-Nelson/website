@@ -1,0 +1,169 @@
+---
+slug: github-enterprise-as-code
+title: Github As Code
+authors: [jake]
+tags:
+  - github
+  - ghe
+  - terraform
+---
+
+
+# Github as Code
+
+
+
+:::caution
+
+**Status:** Work in Progress
+
+:::
+
+
+Having Github managed as code for an entire organisation has several benefits:
+
+* You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)
+* Configuration can be as generic or specific as you need for the case.
+* Implementation is declaritive and transparent.
+* Largely self-service environment reduces TOIL.
+
+The target of this implementation is large enterprise implementations of Github Enterprise.
+
+## Module/Abstraction Use Cases
+
+* Organisation group/user management (membership)
+  * Handle sync groups or static groups
+  * Configure admins
+* Repository configuration
+
+## Creating Organisations
+
+Creating organisations is not available via the Terraform provider.
+
+This has to be done [via the API](https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization).
+
+```bash
+curl \
+  -X POST \
+  -H "Accept: application/vnd.github.v3+json" \
+  http(s)://{hostname}/api/v3/admin/organizations \
+  -d '{"login":"login","admin":"admin"}'
+```
+
+Success Response: `Status: 201 Created`
+
+## User / Group Management
+
+Users and group can be [synced from azure-ad](https://jakenelson.cloud/docs/tech/github/syncing-github-groups-from-azuread.mdx) or configured statically.
+
+### Creating org admins
+
+```
+resource "github_membership" "membership_for_some_user" {
+  username = "SomeUser"
+  role     = "admin"
+}
+```
+
+### Blocking Users
+
+Whilst uncommon it might be required to occasionally block members.
+
+```
+resource "github_organization_block" "example" {
+  username = "paultyng"
+}
+```
+
+## Repository Management
+
+A repository module should be used to ensure that [repository best practices](https://jakenelson.cloud/tech/github/github-repo-best-practices.mdx) are being adhered to.
+
+Use repository templates to consume best practice repos, potentially including things like doc templates and Codeowners.
+
+The option to destroy repositories should be very carefully restricted, probably disallowed entirely via (make destroyed archived).
+
+Template repositories can be managed via code as well.
+
+## Enterprise Code Directory Structures
+
+### Separate Orgs
+
+#### Pros
+* Ideal for improving separation between organisations.
+* Reduces risk of impacting another organisation.
+* All resources defined in Terraform files can be easier to read.
+
+#### Cons
+* Is not DRY - lots of code duplication for each organisation.
+* Can be difficult to maintain.
+* Ambiguous as to who's responsibility it is to maintain the directory (i.e. Github team that own this repo or the organisation owners)
+
+#### Structure
+
+```
+.
+├── CODEOWNERS
+├── modules
+│   └── membership
+│       ├── examples
+│       │   ├── common-org
+│       │   │   ├── main.tf
+│       │   │   └── versions.tf
+│       │   └── edge-case-org
+│       │       ├── main.tf
+│       │       └── versions.tf
+│       ├── main.tf
+│       ├── test
+│       │   ├── terraform_common_org_test.go
+│       │   └── terraform_edge_case_org_test.go
+│       ├── variable.tf
+│       └── variables.tf
+├── orgs
+│   ├── github-management
+│   │   ├── members.tf
+│   │   ├── repositories.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   ├── org-2
+│   │   ├── members.tf
+│   │   ├── repositories.tf
+│   │   ├── variables.tf
+│   │   └── versions.tf
+│   └── orgs
+└── pipelines
+    ├── support-import-resources.yaml
+    ├── cd-new-org.yaml
+    ├── cd-org-management.yaml
+    ├── ci-new-org.yaml
+    └── ci-org-management.yaml
+```
+
+## CI / CD
+
+### Pipeline Practices
+
+Should use a Terraform version greater than 0.13 as it supports Terraform Variable validation out of the box.
+
+### Pipeline Authentication
+Use a token instead of a Github app to authenticate.
+
+This is because Github Apps have limitations around access-management & team membership that requires manual intervention by a organisation admin.
+
+```
+provider "github" {
+  token = var.token # or `GITHUB_TOKEN`
+}
+```
+
+or
+
+```
+provider "github" {
+  app_auth {} # When using `GITHUB_APP_XXX` environment variables
+}
+```
+
+## Resources
+
+* [Github Terraform Provider](https://registry.terraform.io/providers/integrations/github/latest/docs)

@@ -1,0 +1,40 @@
+---
+id: github-repository-best-practices
+title: Repository Best Practices
+tags:
+  - github
+  - ghe
+  - repository
+---
+
+
+# Github Repository Best Practices
+
+## Security
+
+* Enable branch protection to restrict who can push to the trunk.
+  * Pull-requests should require the branch be up to date before merge (aka strict mode).
+  * There should be at least one required status check (this would be a CI pipeline of some type).
+* Use security scanning pipelines to check for credentials committed to feature branches.
+* Use Codeowners to assign more granular permissions (especially in mono-repos).
+* Assign only write privilege to those that need it, if several teams have write privilege, restrict merge privilege to those that maintain the repo.
+
+## Quality
+
+* Use peer-revier via pull-requests to keep the trunk clean and ensure code qualilty meets the standards set by the team.
+* Use CI pipelines to ensure code quality meets the standards set by the team.
+* Use meaningful commit messages and PR titles.
+* Adhere to commit message and PR title length limits.
+* Use commit body to add further detail where requied.
+* Repositories should be meaningful, if there isn't a clear purpose to a repository, it's probably too large.
+
+## Hygiene
+
+* Remove branches that are no longer needed (espsecially after merged).
+* Always commit using a valid user name and email `git config --global user.name <username>` and `git config --global user.email <email address>`.
+* Tidy forks of repositories when they are no longer needed.
+
+## Gotchas
+
+* Github strict mode requires a pipeline be attached to branch protection. [See more](issue-strict-mode.mdx)
+* Squash and Merges are useful when the team doesn't have a lot of Git experience but they don't behave like normal merges. Some of the usual scanning methods used in Github repositories don't work well here.
