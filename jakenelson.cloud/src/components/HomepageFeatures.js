@@ -26,7 +26,7 @@ const FeatureList = [
     Svg: require('../../static/img/google/release_notes.svg').default,
     description: (
       <>
-        I love to learning and solving complex problems through automation. 
+        I love learning and solving complex problems through automation. 
         This allows people to free their energy for more challenging and rewarding work.
       </>
     ),
