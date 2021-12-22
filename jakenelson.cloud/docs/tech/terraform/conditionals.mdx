@@ -1,0 +1,120 @@
+---
+slug: terraform-conditionals
+title: Terraform Conditionals
+authors: [jake]
+tags:
+  - terraform
+---
+
+
+You can use if conditions in combination with Terraform functions at the end of a resoruce to determine if the resource should be created.
+
+Here's a pseudo-code (mostly there) example of creating pipelines based on specific conditions.
+
+```
+locals {
+  minimal_pipeline_definitions = [
+    {
+      working_dir       = "myproject/iam"
+      tfvars            = "dev"
+      terraform_version = "0.13.7"
+    },
+    {
+      working_dir       = "myproject/datalake"
+      tfvars            = "dev"
+      terraform_version = "0.14.6"
+    },
+    {
+      working_dir            = "a-new-project/not-ready"
+      tfvars                 = "dev"
+      terraform_version      = "0.14.6"
+      is_test                = true # use the new pipeline test yamls for testing this project
+      pipeline_type_override = ci   # build only a CI pipeline for this project until we're ready to deploy
+    },
+  ]
+
+  all_pipelines = merge(local.ci_pipelines_generated, local.cd_pipelines_generated, local.custom_pipelines_generated)
+
+  ci_pipelines_generated = {
+
+    # Build CI pipelines
+    # Conditions: pipeline_type_override is set to 'ci' or pipeline_type_override is undefined.
+    for pipeline in local.pipeline_list :
+    # if is_test - will point to test YAMLs in relevant variable and add in those variables to pipeline def.
+    # if is override_template - override yaml to read other yaml provided
+
+    # CI pipelines
+    replace(replace("ci_${pipeline.working_dir}_${pipeline.tfvars}", "-", "_"), " ", "_") => {
+      concurrency = lookup(pipeline, "concurrency", 0)
+      name        = replace(replace("ci-${pipeline.working_dir}-${pipeline.tfvars}", "_", "-"), " ", "")
+      pipeline_variables = lookup(pipeline, "pipeline_variables", {
+        WORKING_DIR       = pipeline.working_dir
+        ENV               = pipeline.tfvars
+        TERRAFORM_VERSION = pipeline.terraform_version
+      })
+      tags     = compact(distinct(concat(local.default_pipeline_config.pipeline_tags, try(pipeline.tags, []), ["ci"])))           # Merge all tags into one group, remove duplicates and empty elements.
+      template = "${try(pipeline.is_test, false) ? "test-" : ""}ci-${try(pipeline.override_template, "terraform-pipeline.yaml")}" # if is_test, prefix with test-, if override_template is defined use that but prefix with ci, else use the common use case and prefix with ci.
+      triggers = lookup(pipeline, "triggers", [
+        # ... trigger definitions for CI pipelines
+      ])
+    } if try(pipeline.pipeline_type_override, "") == "ci" || try(pipeline.pipeline_type_override, "") == ""
+  }
+
+  cd_pipelines_generated = {
+    # Build CD pipelines
+    # Conditions: pipeline_type_override is set to 'cd' or pipeline_type_override is undefined.
+    for pipeline in local.pipeline_list :
+    # if is_test - will point to test YAMLs in relevant variable and add in those variables to pipeline def.
+    # if is override_template - override yaml to read other yaml provided
+
+    replace(replace("cd_${pipeline.working_dir}_${pipeline.tfvars}", "-", "_"), " ", "_") => {
+      concurrency = lookup(pipeline, "concurrency", 1)
+      name        = replace(replace("deploy-${pipeline.working_dir}-${pipeline.tfvars}", "_", "-"), " ", "")
+      pipeline_variables = lookup(pipeline, "pipeline_variables", {
+        WORKING_DIR       = pipeline.working_dir
+        ENV               = pipeline.tfvars
+        TERRAFORM_VERSION = pipeline.terraform_version
+      })
+      template = "${try(pipeline.is_test, false) ? "test-" : ""}deploy-${try(pipeline.override_template, "terraform-pipeline.yaml")}" # complex conditions, ifs within ifs; e.g. if is_test, prefix with test-, if override_template is defined use that but prefix with ci, else use the common use case and prefix with ci.
+      triggers = lookup(pipeline, "triggers", [
+        # ... triggers for CD pipelines
+      ])
+    } if try(pipeline.pipeline_type_override, "") == "cd" || try(pipeline.pipeline_type_override, "") == ""
+  }
+
+  custom_pipelines_generated = {
+    # Build custom spec pipelines (for when the assumed defaults won't work at all)
+    # Conditions: pipeline_type_override is set to 'cd' or pipeline_type_override is undefined.
+    for pipeline in local.pipeline_list :
+    # if is_test - will point to test YAMLs in relevant variable and add in those variables to pipeline def.
+
+    join("_", ["custom_", replace(replace(pipeline.name, "-", "_"), " ", "_")]) => {
+      concurrency = lookup(pipeline, "concurrency", 1) # use lookups to allow overrides
+      # there would be a very verbose pipeline structure here to allow for edge cases
+    } if try(pipeline.pipeline_type_override, "") == "custom"
+  }
+}
+```
+
+The above example includes conditionally creating a resource by ending it with an if statement:
+
+```
+for pipeline in local.pipeline_list :
+    replace(replace("ci_${pipeline.working_dir}_${pipeline.tfvars}", "-", "_"), " ", "_") => {
+        ...
+    } if try(pipeline.pipeline_type_override, "") == "ci" || try(pipeline.pipeline_type_override, "") == ""
+```
+
+It also includes using if conditions within the template/go templating syntax, for example, when determining which yaml file the pipeline should use.
+
+```
+template = "${try(pipeline.is_test, false) ? "test-" : ""}ci-${try(pipeline.override_template, "terraform-pipeline.yaml")}" 
+```
+
+Breaking down the above if conditions we can read it as:
+
+If the customer provided is_test within the pipeline definition as a boolean with the value of `true`,
+then prefix the filename with "test-" otherwise, we don't prefix the filename at all.
+
+We always prefix this filename in this loop with `ci-` and then we determine if the customer wanted to set a custom yaml file for their pipeline defintion,
+otherwise we provide a recommened default.
