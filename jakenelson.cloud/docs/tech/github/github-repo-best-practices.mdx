@@ -17,7 +17,8 @@ tags:
   * There should be at least one required status check (this would be a CI pipeline of some type).
 * Use security scanning pipelines to check for credentials committed to feature branches.
 * Use Codeowners to assign more granular permissions (especially in mono-repos).
-* Assign only write privilege to those that need it, if several teams have write privilege, restrict merge privilege to those that maintain the repo.
+* Assign write privilege only to those that need it, the reason for this is that anyone with write privilege can push tags. This can break deployment patterns that rely on git tags for the versioning of releases.
+* Assign merge privilege to those that maintain the repo.
 
 ## Quality
 
