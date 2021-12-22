@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jakenelson.cloud/blog</id>
     <title>Jake Nelson Blog</title>
-    <updated>2021-12-10T11:42:00.928Z</updated>
+    <updated>2021-12-22T02:36:31.885Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jakenelson.cloud/blog"/>
     <subtitle>Jake Nelson Blog</subtitle>
@@ -11,14 +11,14 @@
         <title type="html"><![CDATA[Github As Code]]></title>
         <id>github-enterprise-as-code</id>
         <link href="https://jakenelson.cloud/blog/github-enterprise-as-code"/>
-        <updated>2021-12-10T11:42:00.928Z</updated>
+        <updated>2021-12-22T02:36:31.885Z</updated>
         <summary type="html"><![CDATA[Status: Work in Progress]]></summary>
         <content type="html"><![CDATA[<p>:::caution</p><p><strong>Status:</strong> Work in Progress</p><p>:::</p><p>Having Github managed as code for an entire organisation has several benefits:</p><ul><li>You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)</li><li>Configuration can be as generic or specific as you need for the case.</li><li>Implementation is declaritive and transparent.</li><li>Largely self-service environment reduces TOIL.</li></ul><p>The target of this implementation is large enterprise implementations of Github Enterprise.</p><h2>Module/Abstraction Use Cases</h2><ul><li>Organisation group/user management (membership)<ul><li>Handle sync groups or static groups</li><li>Configure admins</li></ul></li><li>Repository configuration</li></ul><h2>Creating Organisations</h2><p>Creating organisations is not available via the Terraform provider.</p><p>This has to be done <a href="https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization">via the API</a>.</p><pre><code class="language-bash">curl \
   -X POST \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   http(s)://{hostname}/api/v3/admin/organizations \
   -d &#x27;{&quot;login&quot;:&quot;login&quot;,&quot;admin&quot;:&quot;admin&quot;}&#x27;
-</code></pre><p>Success Response: <code>Status: 201 Created</code></p><h2>User / Group Management</h2><p>Users and group can be <a href="https://jakenelson.cloud/docs/tech/github/syncing-github-groups-from-azuread.mdx">synced from azure-ad</a> or configured statically.</p><h3>Creating org admins</h3><pre><code>resource &quot;github_membership&quot; &quot;membership_for_some_user&quot; {
+</code></pre><p>Success Response: <code>Status: 201 Created</code></p><h2>User / Group Management</h2><p>Users and group can be <a href="https://jakenelson.cloud/docs/tech/github/syncing-github-groups-from-azuread/">synced from azure-ad</a> or configured statically.</p><h3>Creating org admins</h3><pre><code>resource &quot;github_membership&quot; &quot;membership_for_some_user&quot; {
   username = &quot;SomeUser&quot;
   role     = &quot;admin&quot;
 }

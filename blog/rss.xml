@@ -4,21 +4,21 @@
         <title>Jake Nelson Blog</title>
         <link>https://jakenelson.cloud/blog</link>
         <description>Jake Nelson Blog</description>
-        <lastBuildDate>Fri, 10 Dec 2021 11:42:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 22 Dec 2021 02:36:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Github As Code]]></title>
             <link>https://jakenelson.cloud/blog/github-enterprise-as-code</link>
             <guid>github-enterprise-as-code</guid>
-            <pubDate>Fri, 10 Dec 2021 11:42:00 GMT</pubDate>
+            <pubDate>Wed, 22 Dec 2021 02:36:31 GMT</pubDate>
             <description><![CDATA[Status: Work in Progress]]></description>
             <content:encoded><![CDATA[<p>:::caution</p><p><strong>Status:</strong> Work in Progress</p><p>:::</p><p>Having Github managed as code for an entire organisation has several benefits:</p><ul><li>You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)</li><li>Configuration can be as generic or specific as you need for the case.</li><li>Implementation is declaritive and transparent.</li><li>Largely self-service environment reduces TOIL.</li></ul><p>The target of this implementation is large enterprise implementations of Github Enterprise.</p><h2>Module/Abstraction Use Cases</h2><ul><li>Organisation group/user management (membership)<ul><li>Handle sync groups or static groups</li><li>Configure admins</li></ul></li><li>Repository configuration</li></ul><h2>Creating Organisations</h2><p>Creating organisations is not available via the Terraform provider.</p><p>This has to be done <a href="https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization">via the API</a>.</p><pre><code class="language-bash">curl \
   -X POST \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   http(s)://{hostname}/api/v3/admin/organizations \
   -d &#x27;{&quot;login&quot;:&quot;login&quot;,&quot;admin&quot;:&quot;admin&quot;}&#x27;
-</code></pre><p>Success Response: <code>Status: 201 Created</code></p><h2>User / Group Management</h2><p>Users and group can be <a href="https://jakenelson.cloud/docs/tech/github/syncing-github-groups-from-azuread.mdx">synced from azure-ad</a> or configured statically.</p><h3>Creating org admins</h3><pre><code>resource &quot;github_membership&quot; &quot;membership_for_some_user&quot; {
+</code></pre><p>Success Response: <code>Status: 201 Created</code></p><h2>User / Group Management</h2><p>Users and group can be <a href="https://jakenelson.cloud/docs/tech/github/syncing-github-groups-from-azuread/">synced from azure-ad</a> or configured statically.</p><h3>Creating org admins</h3><pre><code>resource &quot;github_membership&quot; &quot;membership_for_some_user&quot; {
   username = &quot;SomeUser&quot;
   role     = &quot;admin&quot;
 }
