@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jakenelson.cloud/blog</id>
     <title>Jake Nelson Blog</title>
-    <updated>2021-12-22T02:36:31.885Z</updated>
+    <updated>2021-12-22T03:04:50.842Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jakenelson.cloud/blog"/>
     <subtitle>Jake Nelson Blog</subtitle>
@@ -11,7 +11,7 @@
         <title type="html"><![CDATA[Github As Code]]></title>
         <id>github-enterprise-as-code</id>
         <link href="https://jakenelson.cloud/blog/github-enterprise-as-code"/>
-        <updated>2021-12-22T02:36:31.885Z</updated>
+        <updated>2021-12-22T03:04:50.842Z</updated>
         <summary type="html"><![CDATA[Status: Work in Progress]]></summary>
         <content type="html"><![CDATA[<p>:::caution</p><p><strong>Status:</strong> Work in Progress</p><p>:::</p><p>Having Github managed as code for an entire organisation has several benefits:</p><ul><li>You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)</li><li>Configuration can be as generic or specific as you need for the case.</li><li>Implementation is declaritive and transparent.</li><li>Largely self-service environment reduces TOIL.</li></ul><p>The target of this implementation is large enterprise implementations of Github Enterprise.</p><h2>Module/Abstraction Use Cases</h2><ul><li>Organisation group/user management (membership)<ul><li>Handle sync groups or static groups</li><li>Configure admins</li></ul></li><li>Repository configuration</li></ul><h2>Creating Organisations</h2><p>Creating organisations is not available via the Terraform provider.</p><p>This has to be done <a href="https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization">via the API</a>.</p><pre><code class="language-bash">curl \
   -X POST \
@@ -25,7 +25,7 @@
 </code></pre><h3>Blocking Users</h3><p>Whilst uncommon it might be required to occasionally block members.</p><pre><code>resource &quot;github_organization_block&quot; &quot;example&quot; {
   username = &quot;paultyng&quot;
 }
-</code></pre><h2>Repository Management</h2><p>A repository module should be used to ensure that <a href="https://jakenelson.cloud/tech/github/github-repo-best-practices.mdx">repository best practices</a> are being adhered to.</p><p>Use repository templates to consume best practice repos, potentially including things like doc templates and Codeowners.</p><p>The option to destroy repositories should be very carefully restricted, probably disallowed entirely via (make destroyed archived).</p><p>Template repositories can be managed via code as well.</p><h2>Enterprise Code Directory Structures</h2><h3>Separate Orgs</h3><h4>Pros</h4><ul><li>Ideal for improving separation between organisations.</li><li>Reduces risk of impacting another organisation.</li><li>All resources defined in Terraform files can be easier to read.</li></ul><h4>Cons</h4><ul><li>Is not DRY - lots of code duplication for each organisation.</li><li>Can be difficult to maintain.</li><li>Ambiguous as to who&#x27;s responsibility it is to maintain the directory (i.e. Github team that own this repo or the organisation owners)</li></ul><h4>Structure</h4><pre><code>.
+</code></pre><h2>Repository Management</h2><p>A repository module should be used to ensure that <a href="https://jakenelson.cloud/docs/tech/github/github-repository-best-practices/">repository best practices</a> are being adhered to.</p><p>Use repository templates to consume best practice repos, potentially including things like doc templates and Codeowners.</p><p>The option to destroy repositories should be very carefully restricted, probably disallowed entirely via (make destroyed archived).</p><p>Template repositories can be managed via code as well.</p><h2>Enterprise Code Directory Structures</h2><h3>Separate Orgs</h3><h4>Pros</h4><ul><li>Ideal for improving separation between organisations.</li><li>Reduces risk of impacting another organisation.</li><li>All resources defined in Terraform files can be easier to read.</li></ul><h4>Cons</h4><ul><li>Is not DRY - lots of code duplication for each organisation.</li><li>Can be difficult to maintain.</li><li>Ambiguous as to who&#x27;s responsibility it is to maintain the directory (i.e. Github team that own this repo or the organisation owners)</li></ul><h4>Structure</h4><pre><code>.
 ├── CODEOWNERS
 ├── modules
 │   └── membership
