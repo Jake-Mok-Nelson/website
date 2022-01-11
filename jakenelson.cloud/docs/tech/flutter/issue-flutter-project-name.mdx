@@ -1,0 +1,109 @@
+---
+id: issue-flutter-project-name
+title: Creating a Flutter Project in the Repository Root
+tags:
+  - flutter
+  - dart
+  - issues
+---
+
+# Creating a Flutter Project in the Repository Root
+
+## Context
+
+When creating Flutter projects in directories that contain dashes (as is common with repositories), dart will error with:
+
+```bash
+"<my-project-name>" is not a valid Dart package name.
+
+See https://dart.dev/tools/pub/pubspec#name for more information.
+```
+
+This doesn't meet the project naming conventions for dart.
+
+## Solution
+
+### Option 1.
+
+Use a subdirectory that meets the naming convention:
+
+Example:
+
+```bash
+flutter create my_app
+```
+
+Creates a new subdirectory and creates a flutter project within it without issue. The subdirectory is named `my_app`.
+
+### Option 2.
+
+Provide the project name yourself and it will create in the current directory even if the current directory doesn't meet the naming convention.
+
+Example:
+
+Assume our repository is named `my-app` which would normally fail if you created a project within it.
+
+```bash
+flutter create . --project-name my_app
+```
+
+Where the `.` significies the current working directory.
+
+This will create the project structure within the root of the repository.
+
+
+```
+<some-path>/my-app
+├───.dart_tool
+├───.idea
+│   ├───libraries
+│   └───runConfigurations
+├───.vscode
+├───android
+│   ├───app
+│   │   └───src
+│   │       ├───debug
+│   │       ├───main
+│   │       │   ├───java
+│   │       │   │   └───io
+│   │       │   │       └───flutter
+│   │       │   │           └───plugins
+│   │       │   ├───kotlin
+│   │       │   │   └───com
+│   │       │   │       └───example
+│   │       │   │           └───template_app
+│   │       │   └───res
+│   │       │       ├───drawable
+│   │       │       ├───drawable-v21
+│   │       │       ├───mipmap-hdpi
+│   │       │       ├───mipmap-mdpi
+│   │       │       ├───mipmap-xhdpi
+│   │       │       ├───mipmap-xxhdpi
+│   │       │       ├───mipmap-xxxhdpi
+│   │       │       ├───values
+│   │       │       └───values-night
+│   │       └───profile
+│   └───gradle
+│       └───wrapper
+├───ios
+│   ├───Flutter
+│   ├───Runner
+│   │   ├───Assets.xcassets
+│   │   │   ├───AppIcon.appiconset
+│   │   └───Base.lproj
+│   ├───Runner.xcodeproj
+│   │   ├───project.xcworkspace
+│   │   │   └───xcshareddata
+│   │   └───xcshareddata
+│   │       └───xcschemes
+│   └───Runner.xcworkspace
+│       └───xcshareddata
+├───lib
+├───test
+└───web
+    └───icons
+```
+
+## Resources
+
+[Github-issue](https://github.com/flutter/flutter/issues/53106)
