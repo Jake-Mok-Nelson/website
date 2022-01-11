@@ -1,0 +1,38 @@
+---
+id: approval-testing
+title: Approval Testing
+tags:
+  - testing
+  - development
+  - software
+  - approval
+---
+
+## What is Approval Testing?
+
+An approval test is a comparison in the results of a product.
+
+Does the overall functionality of my product do what I actually expect. Close(ish) to an integration or system test but does not talk to other systems. It is a data/text based test.
+
+## How to use it?
+
+Example taken from https://approvaltests.com/
+
+> In normal unit testing, you say assertEquals(5, person.getAge()). Approvals allow you to do this when the thing that you want to assert is no longer a primitive but a complex object. For example, you can say, Approvals.verify(person).
+
+1. Write tests that generate text output for validation
+1. Use approval testing tools to compare the last version of the data against the new version of the data.
+1. Accept or deny the changes now that you know that the complex object you're generating matches the expectations.
+
+## Where I learnt this
+
+I learnt about this from the Arrested Devops Podcast episode for November 2021 with Emily Bache who is a technical agile coach.
+
+- [Emily's blog](https://coding-is-like-cooking.info/)
+- [Emily's book](https://leanpub.com/techagilecoach)
+
+
+## Resources
+
+https://approvaltests.com/
+https://github.com/texttest/texttest
