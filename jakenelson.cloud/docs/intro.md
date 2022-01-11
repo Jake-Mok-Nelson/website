@@ -6,12 +6,6 @@ sidebar_position: 1
 
 I'm storing my public docs here for myself as well as code reuse.
 
-## Patterns
+## Latest Build Status
 
-Reusable patterns in cloud/tech.
-
-e.g. Building & Managing Docker images from a mono-repo.
-
-## Notes
-
-This is a place for my notes that don't create a pattern.
+[![publish-site](https://github.com/Jake-Mok-Nelson/website/actions/workflows/publish.yml/badge.svg)](https://github.com/Jake-Mok-Nelson/website/actions/workflows/publish.yml)
