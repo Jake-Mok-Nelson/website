@@ -1,0 +1,32 @@
+---
+id: firebase-extensions
+title: Firebase Extensions
+tags:
+  - firebase
+  - extensions
+---
+
+# Firebase Extensions
+
+## What are Firebase Extensions?
+
+Firebase Extensions are an additional abstraction that offers enhanced functionality to Firebase. You can use one of the provided extensions or write your own.
+
+Once you've deployed an extenion you can review APIs enabled, resources created, and access granted to the extension.
+
+## Some Example Extensions
+
+| Name      | Description | Example Use-Case |
+| ----------- | ----------- |  -------- | 
+| [Distributed Counter](https://firebase.google.com/products/extensions/firebase-firestore-counter)      | Records event counters at scale to accommodate high-velocity writes to Cloud Firestore. | Workaround to the Firestore limit of one sustained write per second by using sharding |
+| [Trigger Email](https://firebase.google.com/products/extensions/firebase-firestore-send-email)   | Composes and sends an email based on the contents of a document written to a specified Cloud Firestore collection. | Render and send emails that contain the information from documents added to a specified Cloud Firestore collection. |
+| [Make Payments with Google Pay](https://firebase.google.com/products/extensions/google-pay-make-payment) | Makes a payment with Google Pay via one or more supported Payment Service Providers, and writes the response to Cloud Firestore. | make payments with your preferred Payment Service Provider (PSP) using Google Pay. |
+| [Delete User Data](https://firebase.google.com/products/extensions/firebase-delete-user-data) | Deletes data keyed on a userId from Cloud Firestore, Realtime Database, and/or Cloud Storage when a user deletes their account. | Simplified cleanup/offboarding of users |
+
+## Resources
+
+[Official](https://firebase.google.com/products/extensions#explore)
+
+[Experimental](https://github.com/FirebaseExtended/experimental-extensions)
+
+[Feature Requests](https://firebase.google.com/support/troubleshooter/report/features)
