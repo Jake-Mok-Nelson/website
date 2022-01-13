@@ -1,0 +1,59 @@
+---
+id: intro-aliases
+title: Intro Alises
+tags:
+  - aliases
+  - mysetup
+  - shell
+---
+
+## What are aliases?
+
+Alises are alternative names or shortcuts to a command or a command with arguments.
+
+## When would you use an alias?
+
+Say you do something regularly, it's a complex command and it takes time to type.
+
+If you know what it does, and know it well, and do it often, then it's a good case to become and alias (i.e. shortened) to a different command. You can use `ls ~/.bashrc` to see if the file exists.
+
+## How do I use your aliases?
+
+They are all stored in code blocks in their respective pages, copy all the contents of the code block and paste it into the correct rc file, 
+exiting and re-opening terminal will now have the commands available or you can bring them into the current shell without restarting by sourcing them with `source ~/.bashrc`.
+
+## How would you use an alias?
+
+You'd record an alias as a bash command in the ~/.bashrc ~/.localrc or whatever file you use based on your shell type
+
+### Example
+
+#### Problem Description
+
+Let's take a common git workflow as an example.
+Say you've made changes, you want to prepare them for being committed, you want to commit them, and then you want to push them to a feature branch matching your branch name.
+
+This is normally done with three steps:
+
+1. `git add -A`
+
+2. `git commit -m "Add the thing"`
+
+3. `git push`
+
+Now, most people experiecne an error here because the target branch doesn't exist yet after the first push so they go back and fix `git push` to something like `git push --set-upstream origin <branch>`.
+
+#### Example with Aliases
+
+```bash
+# Store the alises for future use
+echo "alias gac='git add -A && git commit -m'" >> ~/.bashrc
+echo "alias gp='git push origin HEAD'" >> ~/.bashrc
+```
+
+Now that they have been stored, we can quit terminal. Next time we start working and we open terminal or our shell, 
+we've done some work on our software and we want to commit it, we would just use:
+
+`gac "Add the thing" && gp`
+
+Imagine that you've commiting hourly most days and consider how much time that saves your over years. Hopefully this explains the value of aliases.
