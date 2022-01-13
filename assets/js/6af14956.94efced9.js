@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjakenelson_cloud=self.webpackChunkjakenelson_cloud||[]).push([[8221],{6567:function(s){s.exports=JSON.parse('{"name":"linux","permalink":"/docs/tags/linux","docs":[{"id":"tech/aliases/my-git-aliases","title":"Git Aliases","description":"How do you use these?","permalink":"/docs/tech/aliases/my-git-aliases"}],"allTagsPath":"/docs/tags"}')}}]);

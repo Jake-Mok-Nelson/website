@@ -4,14 +4,14 @@
         <title>Jake Nelson Blog</title>
         <link>https://jakenelson.cloud/blog</link>
         <description>Jake Nelson Blog</description>
-        <lastBuildDate>Tue, 11 Jan 2022 07:53:15 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 13 Jan 2022 03:17:21 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Github As Code]]></title>
             <link>https://jakenelson.cloud/blog/github-enterprise-as-code</link>
             <guid>github-enterprise-as-code</guid>
-            <pubDate>Tue, 11 Jan 2022 07:53:15 GMT</pubDate>
+            <pubDate>Thu, 13 Jan 2022 03:17:21 GMT</pubDate>
             <description><![CDATA[Status: Work in Progress]]></description>
             <content:encoded><![CDATA[<p>:::caution</p><p><strong>Status:</strong> Work in Progress</p><p>:::</p><p>Having Github managed as code for an entire organisation has several benefits:</p><ul><li>You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)</li><li>Configuration can be as generic or specific as you need for the case.</li><li>Implementation is declaritive and transparent.</li><li>Largely self-service environment reduces TOIL.</li></ul><p>The target of this implementation is large enterprise implementations of Github Enterprise.</p><h2>Module/Abstraction Use Cases</h2><ul><li>Organisation group/user management (membership)<ul><li>Handle sync groups or static groups</li><li>Configure admins</li></ul></li><li>Repository configuration</li></ul><h2>Creating Organisations</h2><p>Creating organisations is not available via the Terraform provider.</p><p>This has to be done <a href="https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization">via the API</a>.</p><pre><code class="language-bash">curl \
   -X POST \
