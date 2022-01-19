@@ -6,6 +6,8 @@ sidebar_position: 1
 
 I'm storing my public docs here for myself as well as code reuse.
 
-## Latest Build Status
+:::tip
 
-[![publish-site](https://github.com/Jake-Mok-Nelson/website/actions/workflows/publish.yml/badge.svg)](https://github.com/Jake-Mok-Nelson/website/actions/workflows/publish.yml)
+Open the menu (on mobile) or use the sidebar to the left of this screen to access the docs.
+
+:::

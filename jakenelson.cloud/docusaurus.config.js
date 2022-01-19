@@ -41,6 +41,18 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'learning',
+        path: 'learning',
+        routeBasePath: 'learning',
+        sidebarPath: require.resolve('./sidebars.js'),
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -62,6 +74,13 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
+          {
+            type: 'doc',
+            docId: 'learning-intro',
+            docsPluginId: 'learning',
+            position: 'left',
+            label: 'Learning Exercises',
+          },
           { 
             to: '/about', 
             label: 'About', 
@@ -77,15 +96,19 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          // {
-          //   title: 'Docs',
-          //   items: [
-          //     {
-          //       label: 'Docs',
-          //       to: '/docs/',
-          //     },
-          //   ],
-          // },
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'Docs',
+                to: '/docs/',
+              },
+              {
+                label: 'Learning Exercises',
+                to: '/learning/',
+              },
+            ],
+          },
           {
             title: 'Blogs',
               items: [
