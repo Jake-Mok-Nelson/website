@@ -1,4 +1,4 @@
-.PHONY: init start build deploy
+.PHONY: init start build upgrade deploy
 
 SHELL := /bin/bash
 
@@ -8,11 +8,16 @@ WORKING_DIR="./jakenelson.cloud/"
 init:
 	yarn --cwd $(WORKING_DIR) install
 
-start: init
+upgrade:
+	yarn --cwd $(WORKING_DIR) upgrade @docusaurus/core@latest @docusaurus/preset-classic@latest
+
+start: init upgrade
 	yarn --cwd $(WORKING_DIR) start
 
-build: init
+build: init upgrade
 	NODE_OPTIONS=--openssl-legacy-provider yarn --cwd $(WORKING_DIR) build
 
 deploy: build
 	NODE_OPTIONS=--openssl-legacy-provider GIT_USER=$(GIT_USER) yarn --cwd $(WORKING_DIR) deploy
+
+

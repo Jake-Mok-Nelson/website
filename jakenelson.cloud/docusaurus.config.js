@@ -96,19 +96,19 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Docs',
-                to: '/docs/',
-              },
-              {
-                label: 'Learning Exercises',
-                to: '/learning/',
-              },
-            ],
-          },
+          // {
+          //   title: 'Docs',
+          //   items: [
+          //     {
+          //       label: 'Docs',
+          //       to: '/docs/intro.mdx',
+          //     },
+          //     {
+          //       label: 'Learning Exercises',
+          //       to: '/learning/learning-intro.mdx',
+          //     },
+          //   ],
+          // },
           {
             title: 'Blogs',
               items: [
