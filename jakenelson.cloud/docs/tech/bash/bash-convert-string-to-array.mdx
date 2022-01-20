@@ -1,0 +1,61 @@
+---
+id: bash-convert-string-to-array
+title: Convert a String to an Array in Bash
+tags:
+  - bash
+  - linux
+  - array
+  - loops
+---
+
+# Convert a String to an Array in Bash
+### and iterate over it
+
+## Example Scenario
+
+In a situation where we receive a string that contains an array with a consistent delimeter we might want to iterate over
+that in order to perform some action.
+
+Example array as a string input.
+We're assuming it's in this state because it was easy for the CI/CD tooling to pass in the array in this structure.
+
+### Example data structure
+```bash
+TARGETS="email1@email.com, email2@email.com, email3@email.com"
+```
+
+In this case we want to iterate over each of those email addresses and send the person a message.
+
+### Ensure consistency
+Firstly, we want the string in a consistent state, we don't know if the input will include spaces or not so best we remove them.
+
+```bash
+TARGETS=$(echo "${TARGETS}" | tr -d ' ') # remove white space from targets array (currently a string)
+```
+
+We could also use a regex check to ensure that the email is a valid email but that's a bit overkill in this situation.
+
+### Convert the now clean string to an array of values
+
+```bash
+IFS=',' read -r -a LIST_OF_TARGETS <<< "${TARGETS}" # convert the string into an array (comma delimeter)
+```
+
+#### What's happening here?
+
+- We're setting the value separator (delimeter) with the `IFS=','` portion.
+- We're creating an array called LIST_OF_TARGETS
+- We're reading through the TARGETS string splitting the values into elements of the array.
+
+### Loop the array (to do something)
+
+```bash
+for CURRENT_TARGET in "${LIST_OF_TARGETS[@]}"
+do  
+    if sendMessage "Hello" "${CURRENT_TARGET}; then
+        echo "Sent successfully"
+    else
+        echo "Message failed to send"
+    fi
+done
+```
