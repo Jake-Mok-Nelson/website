@@ -8,4 +8,4 @@ tags:
   - medium
 ---
 
-This blog post is a test to see if we can publish successfully both within docusaurus and to Medium.
+This is a blog post I created in order test if I can publish successfully both within docusaurus and to Medium.
