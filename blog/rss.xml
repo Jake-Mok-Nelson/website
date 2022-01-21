@@ -4,14 +4,14 @@
         <title>Jake Nelson Blog</title>
         <link>https://jakenelson.cloud/blog</link>
         <description>Jake Nelson Blog</description>
-        <lastBuildDate>Fri, 21 Jan 2022 11:58:57 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 21 Jan 2022 12:00:52 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Test publish to Medium via Github Actions]]></title>
             <link>https://jakenelson.cloud/blog/test-from-github-actions</link>
             <guid>test-from-github-actions</guid>
-            <pubDate>Fri, 21 Jan 2022 11:58:57 GMT</pubDate>
+            <pubDate>Fri, 21 Jan 2022 12:00:52 GMT</pubDate>
             <description><![CDATA[This blog post is a test to see if we can publish successfully both within docusaurus and to Medium.]]></description>
             <content:encoded><![CDATA[<p>This blog post is a test to see if we can publish successfully both within docusaurus and to Medium.</p>]]></content:encoded>
         </item>
