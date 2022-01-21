@@ -1,6 +1,6 @@
 ---
 slug: test-from-github-actions
-title: Github As Code
+title: Test publish to Medium via Github Actions
 authors: [jake]
 tags:
   - github
