@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjakenelson_cloud=self.webpackChunkjakenelson_cloud||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Test publish to Medium via Github Actions","permalink":"/blog/test-from-github-actions-take2"}]}')}}]);
