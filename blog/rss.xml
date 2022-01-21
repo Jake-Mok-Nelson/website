@@ -4,69 +4,16 @@
         <title>Jake Nelson Blog</title>
         <link>https://jakenelson.cloud/blog</link>
         <description>Jake Nelson Blog</description>
-        <lastBuildDate>Thu, 20 Jan 2022 04:21:32 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 21 Jan 2022 11:40:09 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Github As Code]]></title>
-            <link>https://jakenelson.cloud/blog/github-enterprise-as-code</link>
-            <guid>github-enterprise-as-code</guid>
-            <pubDate>Thu, 20 Jan 2022 04:21:32 GMT</pubDate>
-            <description><![CDATA[Status: Work in Progress]]></description>
-            <content:encoded><![CDATA[<p>:::caution</p><p><strong>Status:</strong> Work in Progress</p><p>:::</p><p>Having Github managed as code for an entire organisation has several benefits:</p><ul><li>You can define a set of guidelines for creating new resources based on Github best practices. (see resources section)</li><li>Configuration can be as generic or specific as you need for the case.</li><li>Implementation is declaritive and transparent.</li><li>Largely self-service environment reduces TOIL.</li></ul><p>The target of this implementation is large enterprise implementations of Github Enterprise.</p><h2>Module/Abstraction Use Cases</h2><ul><li>Organisation group/user management (membership)<ul><li>Handle sync groups or static groups</li><li>Configure admins</li></ul></li><li>Repository configuration</li></ul><h2>Creating Organisations</h2><p>Creating organisations is not available via the Terraform provider.</p><p>This has to be done <a href="https://docs.github.com/en/enterprise-server@3.0/rest/reference/enterprise-admin#create-an-organization">via the API</a>.</p><pre><code class="language-bash">curl \
-  -X POST \
-  -H &quot;Accept: application/vnd.github.v3+json&quot; \
-  http(s)://{hostname}/api/v3/admin/organizations \
-  -d &#x27;{&quot;login&quot;:&quot;login&quot;,&quot;admin&quot;:&quot;admin&quot;}&#x27;
-</code></pre><p>Success Response: <code>Status: 201 Created</code></p><h2>User / Group Management</h2><p>Users and group can be <a href="https://jakenelson.cloud/docs/tech/github/syncing-github-groups-from-azuread/">synced from azure-ad</a> or configured statically.</p><h3>Creating org admins</h3><pre><code>resource &quot;github_membership&quot; &quot;membership_for_some_user&quot; {
-  username = &quot;SomeUser&quot;
-  role     = &quot;admin&quot;
-}
-</code></pre><h3>Blocking Users</h3><p>Whilst uncommon it might be required to occasionally block members.</p><pre><code>resource &quot;github_organization_block&quot; &quot;example&quot; {
-  username = &quot;paultyng&quot;
-}
-</code></pre><h2>Repository Management</h2><p>A repository module should be used to ensure that <a href="https://jakenelson.cloud/docs/tech/github/github-repository-best-practices/">repository best practices</a> are being adhered to.</p><p>Use repository templates to consume best practice repos, potentially including things like doc templates and Codeowners.</p><p>The option to destroy repositories should be very carefully restricted, probably disallowed entirely via (make destroyed archived).</p><p>Template repositories can be managed via code as well.</p><h2>Enterprise Code Directory Structures</h2><h3>Separate Orgs</h3><h4>Pros</h4><ul><li>Ideal for improving separation between organisations.</li><li>Reduces risk of impacting another organisation.</li><li>All resources defined in Terraform files can be easier to read.</li></ul><h4>Cons</h4><ul><li>Is not DRY - lots of code duplication for each organisation.</li><li>Can be difficult to maintain.</li><li>Ambiguous as to who&#x27;s responsibility it is to maintain the directory (i.e. Github team that own this repo or the organisation owners)</li></ul><h4>Structure</h4><pre><code>.
-├── CODEOWNERS
-├── modules
-│   └── membership
-│       ├── examples
-│       │   ├── common-org
-│       │   │   ├── main.tf
-│       │   │   └── versions.tf
-│       │   └── edge-case-org
-│       │       ├── main.tf
-│       │       └── versions.tf
-│       ├── main.tf
-│       ├── test
-│       │   ├── terraform_common_org_test.go
-│       │   └── terraform_edge_case_org_test.go
-│       ├── variable.tf
-│       └── variables.tf
-├── orgs
-│   ├── github-management
-│   │   ├── members.tf
-│   │   ├── repositories.tf
-│   │   ├── variables.tf
-│   │   └── versions.tf
-│   ├── org-2
-│   │   ├── members.tf
-│   │   ├── repositories.tf
-│   │   ├── variables.tf
-│   │   └── versions.tf
-│   └── orgs
-└── pipelines
-    ├── support-import-resources.yaml
-    ├── cd-new-org.yaml
-    ├── cd-org-management.yaml
-    ├── ci-new-org.yaml
-    └── ci-org-management.yaml
-</code></pre><h2>CI / CD</h2><h3>Pipeline Practices</h3><p>Should use a Terraform version greater than 0.13 as it supports Terraform Variable validation out of the box.</p><h3>Pipeline Authentication</h3><p>Use a token instead of a Github app to authenticate.</p><p>This is because Github Apps have limitations around access-management &amp; team membership that requires manual intervention by a organisation admin.</p><pre><code>provider &quot;github&quot; {
-  token = var.token # or `GITHUB_TOKEN`
-}
-</code></pre><p>or</p><pre><code>provider &quot;github&quot; {
-  app_auth {} # When using `GITHUB_APP_XXX` environment variables
-}
-</code></pre><h2>Resources</h2><ul><li><a href="https://registry.terraform.io/providers/integrations/github/latest/docs">Github Terraform Provider</a></li></ul>]]></content:encoded>
+            <link>https://jakenelson.cloud/blog/test-from-github-actions</link>
+            <guid>test-from-github-actions</guid>
+            <pubDate>Fri, 21 Jan 2022 11:40:09 GMT</pubDate>
+            <description><![CDATA[This blog post is a test to see if we can publish successfully both within docusaurus and to Medium.]]></description>
+            <content:encoded><![CDATA[<p>This blog post is a test to see if we can publish successfully both within docusaurus and to Medium.</p>]]></content:encoded>
         </item>
     </channel>
 </rss>
