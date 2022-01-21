@@ -21,4 +21,4 @@ jobs:
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           medium_token: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
           medium_user_id: '@jake-mok-nelson'
-          articles_folder: jakenelson.cloud/blog/
+          articles_folder: jakenelson.cloud/blog
