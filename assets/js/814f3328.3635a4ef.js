@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjakenelson_cloud=self.webpackChunkjakenelson_cloud||[]).push([[2535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Github As Code","permalink":"/blog/test-from-github-actions"}]}')}}]);
