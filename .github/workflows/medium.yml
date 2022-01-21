@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - jakenelson.cloud/blogs/*.md
+      - jakenelson.cloud/blog/*.md
 
 jobs:
   publish:
