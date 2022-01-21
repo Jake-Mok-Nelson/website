@@ -17,6 +17,7 @@ jobs:
       - name: blogpub
         uses: protiumx/blogpub@v0.1.8
         with:
+          devto_api_key: ${{ secrets.DEVTO_API_KEY }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           medium_token: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
           medium_user_id: '@jake-mok-nelson'
