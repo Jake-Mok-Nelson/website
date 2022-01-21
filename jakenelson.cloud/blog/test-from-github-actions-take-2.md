@@ -1,6 +1,8 @@
 ---
-slug: test-from-github-actions
+slug: test-from-github-actions-take2
 title: Test publish to Medium via Github Actions
+description: Test publish to Medium via Github Actions
+published: true
 authors: [jake]
 tags:
   - github
