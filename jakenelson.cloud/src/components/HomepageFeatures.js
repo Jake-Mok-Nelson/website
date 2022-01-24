@@ -8,7 +8,7 @@ const FeatureList = [
     Svg: require('../../static/img/google/ai_platform.svg').default,
     description: (
       <>
-        Neurodivergant and forever interested in technology. I've been working in the industry for over 20 years.
+        Neurodivergent and forever interested in technology. I've been working in the industry for over 20 years.
       </>
     ),
     },
