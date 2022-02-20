@@ -1,0 +1,111 @@
+---
+slug: testing-terraform-with-golang
+title: Testing Terraform With Golang
+authors: [jake]
+tags:
+  - Terraform
+  - Golang
+  - Terratest
+  - TDD
+---
+
+:::tip
+To find the source code for this exercises you can take a [look at this repository](https://github.com/Jake-Mok-Nelson/exercise-testing-terraform-with-golang).
+:::
+
+## Disclaimer
+
+To understand this article you will need a basic understanding of how a Terraform module works to separate config from implementation detail.
+
+## Intro to Terraform Testing
+
+If you're deploying infrastructure as code at this point in time you're probably doing it using [Terraform](https://www.terraform.io/).
+
+Terraform is a great way to create infrastructure as code. It is:
+- declaritive,
+- supports plugins/providers,
+- enables separation of configuration and implementation,
+- provides a consistent way for many engineers to work with many different system.
+
+If you've used Terraform a bit, you're probably across the common testing pattern, which is also the recommended workflow:
+
+1. Write - Author infrastructure as code.
+1. Plan - Preview changes before applying.
+1. Apply - Provision reproducible infrastructure.
+
+The idea with the above workflow is that the plan portion shows you what will happen before you run apply.
+It's great that Hashicorp (Terraform creators) provide that but it doesn't help you create infrastructure with all the robustness of a Test Driven Development (TDD) pattern.
+
+Using this pattern, you're creating Terraform code with a variety of variables or hard coded values which you'd then run against an environment or system to generate a plan and validate the plan appears as expected.
+
+## What is Test Driven Development (TDD)?
+
+The cycle above is repeated for each new piece of functionality. Tests should be small and incremental, and commits made often. That way, if new code fails some tests, the programmer can simply undo or revert rather than debug excessively. When using external libraries, it is important not to write tests that are so small as to effectively test merely the library itself,[4] unless there is some reason to believe that the library is buggy or not feature-rich enough to serve all the needs of the software under development.
+
+Test driven development is pattern for testing functionality from concept through to implementation.
+
+It should has a range of benefits:
+- It helps to think about the problem from a high level before getting stuck into the code; I know in my case I tend to get tunnel vision so thinking from a high level first really helps.
+- It can help you to validate new changes work as expected.
+- It helps you validate that new changes don't break previously working code.
+
+## What does a TDD workflow look like?
+
+The TDD workflow is a cycle. For each new feature you need to test you would follow this process.
+
+### 1. Add a test
+Think aboug the specific problem you're solving, this could start at a high level (does this basically do what I need to it to do), and then write a test for it.
+
+### 2. Run all tests
+If you're creating this test from a fresh slate (it's the first test), you should see that all your tests fail (** this is actually a good thing **).
+
+If this is a new test added to an existing set of tests, all the previous ones should pass and this test should fail.
+
+You want your tests to fail because you start with the test before building the implementation code, this validates that you will have to build implementation code to meet your requirements (i.e. you won't get a false positive on the test.)
+
+### 3. Write the simplest code that passes the new test
+It should be basic, messy, it can have hard coded values, whatever you need to do to get your new test to pass!
+
+:::warning
+Don't write anything more than what is required to get the pass to test.
+:::
+
+It's okay to look at the debug from testing your implementation and adjust your test but remember to follow the flow: **make sure it fails before it passes everytime you adjust a test.**
+
+### 4. Validate that all tests are passing
+This is where we make sure that our new code from step 3 didn't break any of our existing logic.
+
+### 5. Refactor
+Now you clean up the code from step 3. 
+
+Build whatever abstractions you need, use best practices, get rid of uneccessary hard coded values, etc.
+
+All test should still pass after the refactor.
+
+## Why Golang?
+
+Golang is a great choice for testing Terraform, here's why:
+- It is the language that the Terraform tool and its plugins are actually written in.
+- It has a great community for support.
+- It treats testing as a high priority.
+- There are testing frameworks/packages to help specifically with testing Terraform (e.g. [Terratest](https://terratest.gruntwork.io/))
+
+## Getting Golang setup
+
+## Simple Golang test
+TODO: Create simple golang test
+
+### Creating a new module
+
+### How to run tests
+
+
+## Our use case
+
+TODO: Describe our use case
+
+### Creating our first Terratest with Golang
+
+### Creating the Terraform implementation module
+
+### Creating our example Terraform config code
