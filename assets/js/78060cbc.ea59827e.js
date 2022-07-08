@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjakenelson_cloud=self.webpackChunkjakenelson_cloud||[]).push([[6652],{9724:function(e){e.exports=JSON.parse('{"label":"github","permalink":"/blog/tags/github","allTagsPath":"/blog/tags","count":1}')}}]);

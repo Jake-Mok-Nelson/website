@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjakenelson_cloud=self.webpackChunkjakenelson_cloud||[]).push([[6227],{8429:function(e){e.exports=JSON.parse('{"label":"ghe","permalink":"/blog/tags/ghe","allTagsPath":"/blog/tags","count":1}')}}]);
